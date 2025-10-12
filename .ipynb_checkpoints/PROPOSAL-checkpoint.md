@@ -1,14 +1,20 @@
-# GitHub Classroom Setup Guide for Week 3
+# Project PROPOSAL for Loris Bertschi's Project
 
-## Setting Up the Assignment in GitHub Classroom
+## Project Title & Category
 
-### 1. Create Template Repository
+### 1. Project Title
 
-1. Create a new repository on GitHub called `ps3-template`
-2. Upload all files from this directory to the template repository
-3. Go to Settings → Template repository → Check "Template repository"
+"Portfolio Insight: An Integrated Reporting Tool for Multi-Account Investors"
 
-### 2. Create GitHub Classroom Assignment
+### 2. Project category
+
+My project is likely to fall in the Data Analysis & Visualization category as it involve generating reports coupled with analysing some data and deriving KPI's from it. 
+
+## Problem Statement & Motivation
+
+As hard and complex as investing in the financial market can be, keeping track and monitiring your own performance is another issue. As a personal investor and someone who is constatly surrounded by people who always invest in the financial market, the main issue I hear from my pears, appart from buy high and selling low, is the difficulty they encounter with accruately analyzing their real gain/loss. Of course, most of the online trading platform already include a performance and P/L tracker that is well build, precise and instantiniously incorpoated in their app. However, not every trading app allows you to invest in the securities or asset that you want. Many investor are thus forced to install numerous app, create different account and monitor several portfolio at the same time. This level of complexity and multitude of places to track makes everything hard and not clear. The foal
+
+
 
 1. Go to GitHub Classroom
 2. Click "New assignment"

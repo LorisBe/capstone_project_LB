@@ -1,14 +1,23 @@
-# GitHub Classroom Setup Guide for Week 3
+# Project PROPOSAL for Loris Bertschi's Project
 
-## Setting Up the Assignment in GitHub Classroom
+## Project Title & Category
 
-### 1. Create Template Repository
+### 1. Project Title
 
-1. Create a new repository on GitHub called `ps3-template`
-2. Upload all files from this directory to the template repository
-3. Go to Settings → Template repository → Check "Template repository"
+"Portfolio Insight: An Integrated Reporting Tool for Multi-Account Investors"
 
-### 2. Create GitHub Classroom Assignment
+### 2. Project category
+
+My project is likely to fall in the Data Analysis & Visualization category as it involve generating reports coupled with analysing some data and deriving KPI's from it. 
+
+## Problem Statement & Motivation
+
+Investing in the financial markets is already complex, but tracking and understanding your own performance adds another layer of difficulty. As a personal investor, and someone constantly surrounded by others who actively trade, I often hear the same frustration from my peers, beyond buying high and selling low, the biggest challenge is accurately assessing their real gains and losses.
+
+Most online trading platforms include a built-in performance tracker or P/L tool that’s precise, well-designed, and updates instantly. However, no single app offers access to every type of asset or security an investor might want. As a result, many investors end up juggling multiple trading apps, managing several accounts, and tracking different portfolios across various platforms. This fragmentation makes it difficult to get a clear, consolidated picture of overall performance.
+
+The goal of this project is to build an application or interface that allows users to centralize all their holdings and investments in one place. By entering their positions and relevant details, users will be able to monitor their total portfolio performance and receive daily or weekly reports offering a clear, visual overview of their returns across all platforms and asset class. 
+
 
 1. Go to GitHub Classroom
 2. Click "New assignment"
