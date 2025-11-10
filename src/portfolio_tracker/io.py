@@ -1,0 +1,72 @@
+import pandas as pd
+import yfinance as yf
+
+REQUIRED_COLS = [
+    "account_id", "asset_type", "ticker", "currency", "quantity", "avg_cost"
+]
+
+def load_holdings(filepath="data/sample_holdings.csv") -> pd.DataFrame:
+    """
+    Read a holding CSV and validate required columns. It will return a nice DataFrame you can display/use elsewhere.
+    """
+    df = pd.read_csv(filepath)
+    missing = [c for c in REQUIRED_COLS if c not in df.columns]
+    if missing:
+        raise ValueError(f"Missing columns in holdings CSV: {missing}")
+    df["ticker"] = df["ticker"].astype(str)
+    df["quantity"] = pd.to_numeric(df["quantity"], errors="coerce")
+    df["avg_cost"] = pd.to_numeric(df["avg_cost"], errors="coerce")
+
+    if df["quantity"].isna().any() or df["avg_cost"].isna().any():
+        raise ValueError("Found non-numeric values in 'quantity' or 'avg_cost'.")
+    
+    return df
+
+def fetch_prices(tickers, start="2020-01-01", end=None) -> pd.DataFrame:
+    """
+    This function download prices from Yahoo Finance. 
+    It also return a DatFrame indexed by date and column.
+    
+    """
+    if isinstance(tickers, (pd.Series, pd.Index)):
+        tickers = tickers.tolist()
+    tickers = [str(t).strip() for t in tickers if str(t).strip()]
+    if not tickers:
+        raise ValueError("No tickers provided to fetch_prices().")
+
+    data = yf.download(
+        tickers,
+        start=start,
+        end=end,
+        auto_adjust=True,
+        progress=False,
+        threads=True,
+    )
+
+    # Normalize yfinance output to wide [date x tickers] of adj close
+    if isinstance(data, pd.DataFrame) and "Adj Close" in data.columns:
+        data = data["Adj Close"]
+    if isinstance(data, pd.Series):
+        colname = tickers[0] if tickers else "price"
+        data = data.to_frame(name=colname)
+
+    data = data.rename_axis("date").sort_index()
+
+    # If everything failed (e.g., no internet), fall back to synthetic prices
+    if data.empty or data.dropna(axis=1, how="all").shape[1] == 0:
+        import numpy as np
+        print("⚠️ Yahoo download failed; generating synthetic prices for offline use.")
+        dates = pd.date_range(start, end or pd.Timestamp.today(), freq="B")
+        rng = np.random.default_rng(0)
+        fake = pd.DataFrame(index=dates)
+        for t in tickers:
+            steps = rng.normal(0.0005, 0.02, len(dates))
+            fake[t] = 100 * np.exp(np.cumsum(steps))
+        fake.index.name = "date"
+        return fake
+
+    # Drop all-NaN columns (bad tickers) and return
+    data = data.dropna(axis=1, how="all")
+    return data
+ 
+        
