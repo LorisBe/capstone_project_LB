@@ -1,15 +1,15 @@
 import pandas as pd
-from typing import List
+from typing import List, Dict, Optional
 import yfinance as yf
 
 
-def ask_position() -> dict | None:
+def ask_position() -> Optional[Dict]:
     """
     This function as the user for his porfolio's position. (ticker, quantity, avg_cost, etc..)
     Return a dict for the position, or None if the user wants to stop
-    """" 
-    ticker = input("Ticker (empty to finish): ").strip #ask him for the ticker
-    if ticker =="":
+    """
+    ticker = input("Ticker (empty to finish): ").strip() #ask him for the ticker
+    if ticker == "" :
         return None
     
     qty_str = input("  Quantity: ").strip()
@@ -21,13 +21,13 @@ def ask_position() -> dict | None:
         quantity = float(qty_str)
         avg_cost = float(cost_str) #See if cost and quantity are float, else re do it 
     except ValueError:
-        print("  ❌ Quantity and average cost must be numbers. Try again.\n")
+        print(" Quantity and average cost must be numbers. Try again.\n")
         return ask_position()
 
     pos = {
         "account_id": "acc1",          # simple default
         "asset_type": asset_type,
-        "ticker": ticker.upper(),
+        "ticker": ticker,
         "currency": currency.upper(), 
         "quantity": quantity,
         "avg_cost": avg_cost,
@@ -40,6 +40,7 @@ def ask_holdings() -> pd.DataFrame:
     """
     rows: List[dict] = []
     i = 1
+    
     while True:
         print(f"Position #{i}") #use the last function unitl user breaks
         pos = ask_position()
@@ -56,3 +57,5 @@ def ask_holdings() -> pd.DataFrame:
     print("Holdings caputred, DataFrame of holdings created, please check accruacy:")
     print(df)
     return df
+
+ask_holdings()
