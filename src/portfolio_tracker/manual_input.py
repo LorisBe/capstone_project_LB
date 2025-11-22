@@ -58,4 +58,65 @@ def ask_holdings() -> pd.DataFrame:
     print(df)
     return df
 
-ask_holdings()
+def fetch_prices(
+    holdings: pd.DataFrame,
+    start: str = "2023-01-01",
+    end: Optional[str] = None,
+) -> pd.DataFrame:
+    """
+    Fetch historical prices for all tickers in the holdings DataFrame
+    using yfinance. Returns a DataFrame of adjusted close prices.
+    """
+    tickers = holdings["ticker"].astype(str).unique().tolist()
+    if not tickers:
+        raise ValueError("No tickers found in holdings.")
+
+    print(f"\nFetching prices for: {tickers}")
+    
+    data = yf.download(
+        tickers,         
+        start=start,
+        end=end,
+        auto_adjust=True,
+        progress=False,
+    )
+
+    # MultiIndex case: ('Adj Close', ticker)
+    if isinstance(data.columns, pd.MultiIndex):
+        if "Adj Close" in data.columns.levels[0]:
+            data = data["Adj Close"]
+
+    # Single-level case with 'Adj Close'
+    if isinstance(data, pd.DataFrame) and "Adj Close" in data.columns:
+        data = data["Adj Close"]
+
+    # Ensure we always return a DataFrame
+    if isinstance(data, pd.Series):
+        data = data.to_frame()
+
+    print("\n✅ Prices downloaded (head):")
+    print(data.head())
+    return data
+
+if __name__ == "__main__":
+    # Simple manual test
+    print("\n=== Manual Input Test ===")
+    try:
+        holdings_df = ask_holdings()
+    except Exception as e:
+        print(f"\n❌ Error while entering holdings: {e}")
+        raise SystemExit(1)
+
+    print("\n=== Final Holdings DataFrame ===")
+    print(holdings_df)
+
+
+    try:
+        prices_df = fetch_prices(holdings_df, start="2023-01-01")      #try to fetch prices with yfinance
+        print("\n=== Final Prices DataFrame (head) ===")
+        print(prices_df.head())
+    except Exception as e:
+        print(f"\n⚠️ Could not fetch prices: {e}")
+
+    print("\n=== Program finished ===")
+    
