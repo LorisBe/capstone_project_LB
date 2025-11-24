@@ -72,59 +72,48 @@ def ask_holdings() -> pd.DataFrame:
     print(df)
     return df
 
-def fetch_prices_from_holdings(holdings, start="2020-01-01", end=None):
+def fetch_prices_from_holdings(holdings: pd.DataFrame, start="2020-01-01", end=None):
     """
-    FORCE correct price format: wide [date x tickers] with adjusted close only.
+    Fetch price data for the tickers in holdings.
+    Always returns a clean DataFrame: index = dates, columns = tickers,
+    values = adjusted close prices.
     """
-    tickers = holdings["ticker"].tolist()
+
+    tickers = holdings["ticker"].astype(str).unique().tolist()
+    if not tickers:
+        raise ValueError("No tickers in holdings.")
+
+    print(f"\nFetching prices for tickers: {tickers}")
 
     data = yf.download(
-        tickers,
+        tickers=tickers,
         start=start,
         end=end,
-        auto_adjust=True,
-        progress=False,
-        threads=True,
+        auto_adjust=True,      # already adjusted (dividends, splits)
+        progress=False
     )
 
-    # If yfinance returns multi-index OHLCV, select the 'Close' level
+    # Case 1: MultiIndex (most common with >1 tickers)
     if isinstance(data.columns, pd.MultiIndex):
-        data = data["Close"]
+        if "Adj Close" in data.columns.levels[0]:
+            data = data["Adj Close"]        # keep only adjusted close
+        elif "Close" in data.columns.levels[0]:
+            data = data["Close"]            # fallback
+    
+    # Case 2: Single-index for 1 ticker
+    else:
+        if "Adj Close" in data.columns:
+            data = data[["Adj Close"]]
+        elif "Close" in data.columns:
+            data = data[["Close"]]
+        # rename column to the ticker name
+        data.columns = tickers
 
-    # Ensure correct ordering and fill missing values
-    data = data.sort_index().ffill()
+    # Clean-up
+    data = data.sort_index().ffill().dropna(how="all")
+    data.attrs["source"] = "yfinance"
+
+    print("Prices downloaded (head):")
+    print(data.head())
 
     return data
-
-if __name__ == "__main__":
-    print("\n=== Manual portfolio test ===\n")
-
-    # 1) Ask user for holdings
-    holdings = ask_holdings()
-
-    print("\n=== Holdings DataFrame ===")
-    print(holdings)
-
-    # 2) Fetch prices using your existing fetch_prices() via our wrapper
-    prices = fetch_prices_from_holdings(holdings, start="2020-01-01")
-
-    print("\n=== Prices DataFrame (head) ===")
-    print(prices.head())
-
-    # 3) Compute portfolio daily returns
-    port_ret = portfolio_returns(holdings, prices)
-    print("\n=== Portfolio daily returns (head) ===")
-    print(port_ret.head())
-
-    # 4) Compute KPIs
-    kpis = kpi_table(port_ret)
-    print("\n=== KPI table ===")
-    print(kpis)
-
-    print("\n=== Building ML dataset (X, y) ===")
-X, y = build_vol_dataset(port_ret)
-
-print("X shape:", X.shape)
-print("y shape:", y.shape)
-print("\nX head:\n", X.head())
-print("\ny head:\n", y.head())

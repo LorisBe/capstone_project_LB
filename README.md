@@ -4,7 +4,7 @@ My project builds a data analysis and visualization tool to consolidate investme
 The project also uses ML and DS to predict and estimate future risk of the same porfolio.
 
 ### Features
-- Import holdings from CSV
+- Import holdings from CSV or manually.
 - Fetch or simulate market prices
 - Compute daily returns, portfolio performance, and KPIs
 - (Offline-safe: falls back to synthetic prices)
