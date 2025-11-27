@@ -1,11 +1,5 @@
-# Core
 pandas
 numpy
 matplotlib
 scikit-learn
-
-# Data access
 yfinance
-
-# App & visualization
-streamlit

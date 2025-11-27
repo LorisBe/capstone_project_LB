@@ -31,6 +31,7 @@ def main():
     data_dir = root / "data"
     results_dir = root / "results"
     results_dir.mkdir(exist_ok=True)
+    data_dir.mkdir(exist_ok=True)
 
     # === Manual input mode ===
     print("Manual input mode activated. Please enter your positions:\n")
