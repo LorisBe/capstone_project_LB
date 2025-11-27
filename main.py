@@ -87,6 +87,16 @@ def main():
 
     print("\n=== Volatility Forecast Models ===")
     print(results.to_string(float_format=lambda x: f"{x:0.6f}"))
+    first_err_col = results.columns[0] #look for best model
+    best_model_name = results[first_err_col].idxmin() 
+
+    print(f"\nBest model according to {first_err_col}: {best_model_name}") #print actual best model to intel the user
+    latest_features = X.iloc[[-1]]   # last row of data , keep as DataFrame
+
+    print("\nLatest feature values used for prediction (last available date):")
+    print(latest_features.T)  # transpose for easier reading (one feature per line)
+
+
 
     # 5) Predict next-week volatility using Random Forest
     rf_model = models["random_forest"]
