@@ -1,4 +1,4 @@
-# Portfolio Tracker — Data Science Capstone Project
+# Portfolio Tracker — Data Science Project
 
 My project builds a data analysis and visualization tool to consolidate investment portfolios. It is useful to see the user's current portfolio return and historical risk. 
 The project also uses ML and DS to predict and estimate future risk of the same porfolio.
@@ -24,12 +24,12 @@ The project also uses ML and DS to predict and estimate future risk of the same 
 ## 1) Clone the repository, install requirment and run main()
 ```bash
 git clone <REPO_URL>
-cd capstone_project_LB
+cd FutureVolatility_project_LB
 conda env create -f environment.yml
 conda activate capstone_portfolio
 python main.py
 ```
-### 2) Enter Loris' base portfolio for same result (adjusted for recent move  in price
+### 2) Enter Loris' base portfolio for same result (adjusted for recent move  in price)
 
 Full brake down of my portfolio for you to enter in the code to run and get the result of my personal portfolio : 
 
