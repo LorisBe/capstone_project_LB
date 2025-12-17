@@ -4,11 +4,11 @@ My project builds a data analysis and visualization tool to consolidate investme
 The project also uses ML and DS to predict and estimate future risk of the same porfolio.
 
 ### Features
-- Import holdings from CSV or manually.
+- Import holdings manually.
 - Fetch or simulate market prices via Yahoo Finance
-- Price are automatically saved in the data/ folder to see prices
+- Prices are automatically saved in data/
 - Compute daily returns, portfolio performance, and KPIs
-- Automatique generation od financial plots saved n results/
+- Automatic generation of financial plots saved in results/
 - Volatility forecasting dataset builder 
 - ML forecasting module using 3 models
     1) Naive (baseline)
