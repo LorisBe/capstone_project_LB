@@ -16,7 +16,7 @@ The project also uses ML and DS to predict and estimate future risk of the same 
     3) Random Forest
 - Automatic model selection based on lowest MAE
 - Next week volatility prediction
-- Portfolio value imnpact estimate based on next 5 days volatility
+- Portfolio value impact estimate based on next 5 days volatility
 
 
 ## How to run the project
