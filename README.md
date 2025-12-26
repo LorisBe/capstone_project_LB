@@ -18,6 +18,25 @@ The project also uses ML and DS to predict and estimate future risk of the same 
 - Next week volatility prediction
 - Portfolio value impact estimate based on next 5 days volatility
 
+## Project Structure
+
+FutureVolatility_project_LB/
+
+├── main.py              # Main entry point
+├── src/                 # Source code
+│   ├── io.py            # Data loading/preprocessing
+│   ├── kpis.py          # KPIs calculation
+│   ├── manual_input.py  # Data input/collection
+│   ├── model_training.py# Model training
+│   ├── risk_models.py   # Features builder
+│   └──transform.py      # Evaluation metrics
+├── data/                # Data from base portfolio
+├── results/Loris' Portfolio results/ # Output plots and metrics
+├── requierments.txt     # Requierments
+├── PROPOSAL.md          # Proposal
+├── Final_report.pdf     # Final Report
+└── environment.yml      # Dependencies
+
 
 ## How to run the project
 
@@ -63,6 +82,10 @@ Currency: USD
 
 **5)**  
 Press Enter on an empty ticker to end the input.
+
+## Results
+
+
 
 
 # Enjoy!
