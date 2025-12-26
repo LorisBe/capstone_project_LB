@@ -17,6 +17,24 @@ The project also uses ML to predict and estimate future risk of the same porfoli
 - Automatic model selection based on lowest MAE
 - Next week volatility prediction
 - Portfolio value impact estimate based on next 5 days volatility
+### Structure 
+```text
+FutureVolatility_project_LB/
+├── main.py                    # Main entry point
+├── src/                       # Source code
+│   ├── io.py                  # Data loading / preprocessing
+│   ├── kpis.py                # KPIs calculation
+│   ├── manual_input.py        # Data input / collection
+│   ├── model_training.py      # Model training
+│   ├── risk_models.py         # Feature builder
+│   └── transform.py           # Evaluation metrics
+├── data/                      # Data from base portfolio
+├── results/                   # Output plots and metrics
+├── requirements.txt           # Requirements
+├── PROPOSAL.md                # Proposal
+├── Final_report.pdf           # Final report
+└── environment.yml            # Dependencies
+```
 
 ## How to run the project
 
