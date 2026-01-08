@@ -81,4 +81,27 @@ Currency: USD
 **5)**  
 Press Enter on an empty ticker to end the input.
 
+## Results
+
+Result are dynamic in this project, meaning you'll get different result each time you run the program as the entries will be different and the prices will be updated daily. However, for the sake of this project, a base case portfolio was created and ran on the 26th of december 2025. The result were : 
+```text
+| Model            | Average Absolute Error | Average Squared Error | RMSE     |
+| ---------------- | ---------------------- | --------------------- | -------- |
+| **Naive**        | 0.225177               | 0.106795              | 0.326796 |
+| **LinearReg**    | 0.189103               | 0.074172              | 0.272346 |
+| **RandomForest** | 0.180084               | 0.074678              | 0.273273 |
+
+
+Predicted next-week annualized volatility: 0.4353
+
+Approximate 5-day volatility (1σ): 6.13%
+
+Based on this estimate, over the next 5 trading days the portfolio value could typically fluctuate by ±6.13%.
+
+Current portfolio value: 12629.97
+
+Expected range (1σ): [11855.56 , 13404.37]
+```
 # Enjoy!
+
+
